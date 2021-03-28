@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is login</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/test.css') }}" type="text/css">
+</head>
+<body>
+<script src="{{ url_for('static',filename='js/navbar.js') }}"></script>
+<form method="post">
+    <p>用户名</p><input type="text" name="username" placeholder="请输入用户名">
+    <p>密码</p><input type="text" name="password" placeholder="请输入密码">
+    <input type="submit" name="login" value="登录">
+    <input type="submit" name="">
+</form>
+</body>
+</html>

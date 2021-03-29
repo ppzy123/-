@@ -5,59 +5,35 @@ from config import Config
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired
+from __init__ import *
+from models import *
 
-
-class Config(object):
-    # .......
-    # 格式为mysql+pymysql://数据库用户名:密码@数据库地址:端口号/数据库的名字?数据库格式
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@localhost:3306/Web_paper?charset=utf8'
-    # 如果你不打算使用mysql，使用这个连接sqlite也可以
-    # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR,'app.db')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-
-class loginForm(FlaskForm):  # 自创表单函数
-    text = StringField('输入框:', validators=[DataRequired('啊这，你怎么不输入')])  # u用于转码
-    submit = SubmitField('提交:')
+# class loginForm(FlaskForm):  # 自创表单函数
+#     text = StringField('输入框:', validators=[DataRequired('啊这，你怎么不输入')])  # u用于转码
+#     submit = SubmitField('提交:')
 
 
 # @app.route('/form', methods=['GET', 'POST'])
 # def login():
 #     return render_template('index.html')
+#
+# app = Flask(__name__)
+# app.config.from_object(Config)
+# app.secret_key = '我是密码'
+# db = SQLAlchemy(app)
+# # db.init_app(app)
 
-app = Flask(__name__)
-app.config.from_object(Config)
-app.secret_key = '我是密码'
-db = SQLAlchemy(app)
-# db.init_app(app)
 
-
-class Role(db.Model):  # 继承数据库模型
-    # 定义表明
-    __tablename__ = 'role'
-    # dingyizhiduan
-    id = db.Column(db.Integer, primary_key=True)  # 表示是字段
-    # 创表语句
-    #加入这是一对多的关联表
-    #user= db.relationship('User')表示合User模型发生了关联，假装在Role里添加了一个user字段，仅仅是方便查询。
-    #user= db.relationship('User'，backref='role')定义了反向引用，在User里添加假装字段自己也有
-    #建立引用，外键直接使用role.user返回user对象
-    def __repr__(self):#可以用于打印数据，相当于类里的方法
-        return '<Role: %s>' % (self.id)
-
-class User(db.Model):
-    __tablename__ = 'user'
-    id = db.Column(db.Integer, primary_key=True)
 
 @app.route('/',methods=['GET','POST'])
 def test():
 
-    if request.form.get('转到login')=='点我':
-        return redirect('login')#重定向到路由
-    else:
-        user_list=User.query.all()
-        print(user_list[0].id)
-        return render_template('index.html',user_list=user_list)
+    # if request.form.get('转到login')=='点我':
+    #     return redirect('login')#重定向到路由
+    # else:
+    #     user_list=User.query.all()
+    #     print(user_list.id)
+        return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -125,6 +101,5 @@ def index():
 
 
 if __name__ == '__main__':
-    # 删除表
 
     app.run()
